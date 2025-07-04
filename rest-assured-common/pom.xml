@@ -12,30 +12,21 @@
     </parent>
 
     <groupId>io.rest-assured</groupId>
-    <artifactId>xml-path</artifactId>
+    <artifactId>rest-assured-common</artifactId>
     <version>4.2.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>xml-path</name>
-    <description>XML support for REST Assured</description>
+    <name>rest-assured-common</name>
+    <description>Common internal classes shared by REST Assured modules</description>
     <url>https://github.com/rest-assured/rest-assured</url>
 
     <dependencies>
-        <!-- ✅ Needed for internal XML handling classes -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Existing likely dependencies -->
+        <!-- Groovy runtime -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.ccil.cowan.tagsoup</groupId>
-            <artifactId>tagsoup</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -56,6 +47,7 @@
 
     <build>
         <plugins>
+            <!-- Compile Groovy -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
@@ -72,6 +64,7 @@
                 </executions>
             </plugin>
 
+            <!-- OSGi support -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -80,8 +73,8 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            io.restassured.path.xml.*,
-                            io.restassured.internal.path.xml.*
+                            io.restassured.common.*,
+                            io.restassured.internal.common.*
                         </Export-Package>
                         <Import-Package>
                             groovy.*;version="${groovy.range}",
@@ -95,4 +88,3 @@
     </build>
 
 </project>
-
